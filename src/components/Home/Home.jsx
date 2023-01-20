@@ -18,6 +18,7 @@ const Home = () => {
   //   queryKey: ["product"],
   //   queryFn: fetchCategory,
   // });
+  const imageUrl = `https://api.escuelajs.co/api/v1/products/?title=Handmade`;
   const anoURL = `https://api.escuelajs.co/api/v1/products/?title=Generic`;
   const UrL = `https://api.escuelajs.co/api/v1/categories`;
 
@@ -27,6 +28,10 @@ const Home = () => {
   });
   const { data } = useQuery(["productss"], async () => {
     const res = await axios.get(anoURL);
+    return await res.data;
+  });
+  const { data: rowData } = useQuery(["row"], async () => {
+    const res = await axios.get(imageUrl);
     return await res.data;
   });
   console.log(CaterogryQuery);
@@ -55,11 +60,11 @@ const Home = () => {
             ))}
           </Splide>
 
-          <div className="flex flex-col bg-gradient-to-b from-transparent to-[#81819c] ">
+          <div className="flex flex-col bg-gradient-to-b from-[#f3efef] to-[#81819c] ">
             <CategoryRow data={CaterogryQuery} />
 
             <CategoryRow second data={data} />
-            <ImagesRow />
+            <ImagesRow data={rowData} />
             {/* <ImagesRow /> */}
             <CategoryRow />
             {/* <ImagesRow />
