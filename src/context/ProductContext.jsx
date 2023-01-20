@@ -14,7 +14,7 @@ const ProductContext = createContext({
 });
 
 export const ProductContextProvider = ({ children }) => {
-  const [searchedProduct, setSearchedProduct] = useState("");
+  const [searchProduct, setsearchProduct] = useState("");
   const [result, setResult] = useState("");
 
   // fetch Product Categories
@@ -36,15 +36,15 @@ export const ProductContextProvider = ({ children }) => {
 
   //   Handle search change
   const onSearchChange = (e) => {
-    setSearchedProduct(e.target.value);
+    setsearchProduct(e.target.value);
   };
 
   //   Handle SearchBtn Click
   const onClickSearch = (e) => {
-    if (!searchedProduct && searchedProduct === "") return;
+    if (!searchProduct && searchProduct === "") return;
 
-    setResult(searchedProduct);
-    setSearchedProduct("");
+    setResult(searchProduct);
+    setsearchProduct("");
   };
 
   return (

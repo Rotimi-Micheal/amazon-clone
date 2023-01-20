@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import CategoryRow from "./CategoryRow";
 import ImagesRow from "./ImagesRow";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -6,8 +6,14 @@ import "@splidejs/react-splide/css";
 import { ImgSlidedata, ImgSlideOption } from "../../constant/data";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import ProductContext from "../../context/ProductContext";
 
 const Home = () => {
+  const categoriesCtx = useContext(ProductContext);
+
+  const { categories } = categoriesCtx;
+
+  console.log(categories?.data);
   // const fetchCategory = () => {
   //   return axios
   //     .get(`https://api.escuelajs.co/api/v1/categories`)
