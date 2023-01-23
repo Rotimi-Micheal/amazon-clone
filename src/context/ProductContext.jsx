@@ -4,6 +4,22 @@ import React, { createContext, useState } from "react";
 
 const BASE_URL = `https://dummyjson.com`;
 
+// fetch product Category
+const fetchProductCategory = async (category) => {
+  const { data } = await axios.get(
+    `https://dummyjson.com/products/category/${category}`
+  );
+  return data;
+};
+
+// useQuery Of fetched category
+const useQueryFetchedCategory = (queryKey, fetchCategory) => {
+  const useQueryCategory = useQuery([queryKey], () =>
+    fetchProductCategory(fetchCategory)
+  );
+  return useQueryCategory;
+};
+
 const ProductContext = createContext({
   categories: {},
   products: {},
@@ -11,6 +27,7 @@ const ProductContext = createContext({
   onClickSearch: () => {},
   result: "",
   searchProduct: "",
+  smartPhoneCategory: {},
 });
 
 export const ProductContextProvider = ({ children }) => {
@@ -34,6 +51,21 @@ export const ProductContextProvider = ({ children }) => {
 
   const products = useQuery(["product"], () => fetchProducts());
 
+  // fetchProductCategory("home-decoration");
+  const smartPhoneCategory = useQueryFetchedCategory(
+    "smartPhone",
+    "home-decoration"
+  );
+
+  // fetch skincareCategory
+  const skincareCategory = useQueryFetchedCategory("skincare", "skincare");
+
+  //  fetch laptop category
+  const laptopCategory = useQueryFetchedCategory("laptops", "laptops");
+
+  // fetch smarthphone category
+  const phoneCategory = useQueryFetchedCategory("phone", "smartphones");
+
   //   Handle search change
   const onSearchChange = (e) => {
     setsearchProduct(e.target.value);
@@ -56,6 +88,10 @@ export const ProductContextProvider = ({ children }) => {
         onClickSearch,
         searchProduct,
         products,
+        smartPhoneCategory,
+        skincareCategory,
+        laptopCategory,
+        phoneCategory,
       }}
     >
       {children}

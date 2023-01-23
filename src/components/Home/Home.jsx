@@ -11,19 +11,16 @@ import ProductContext from "../../context/ProductContext";
 const Home = () => {
   const categoriesCtx = useContext(ProductContext);
 
-  const { categories } = categoriesCtx;
+  const {
+    categories,
+    products,
+    smartPhoneCategory,
+    skincareCategory,
+    laptopCategory,
+    phoneCategory,
+  } = categoriesCtx;
+  console.log(skincareCategory?.data);
 
-  console.log(categories?.data);
-  // const fetchCategory = () => {
-  //   return axios
-  //     .get(`https://api.escuelajs.co/api/v1/categories`)
-  //     .then((res) => res.data);
-  // };
-
-  // const CaterogryQuery = useQuery({
-  //   queryKey: ["product"],
-  //   queryFn: fetchCategory,
-  // });
   const imageUrl = `https://api.escuelajs.co/api/v1/products/?title=Handmade`;
   const anoURL = `https://api.escuelajs.co/api/v1/products/?title=Generic`;
   const UrL = `https://api.escuelajs.co/api/v1/categories`;
@@ -40,8 +37,8 @@ const Home = () => {
     const res = await axios.get(imageUrl);
     return await res.data;
   });
-  console.log(CaterogryQuery);
-  console.log(data);
+  // console.log(CaterogryQuery);
+  // console.log(data);
 
   // if (CaterogryQuery.status === "loading")
   //   return <h1 className="text-5xl">Loading.....</h1>;
@@ -67,15 +64,16 @@ const Home = () => {
           </Splide>
 
           <div className="flex flex-col bg-gradient-to-b from-[#f3efef] to-[#81819c] ">
-            <CategoryRow data={CaterogryQuery} />
+            <CategoryRow data={products} />
+            <CategoryRow second data={smartPhoneCategory} />
 
-            <CategoryRow second data={data} />
-            <ImagesRow data={rowData} />
-            {/* <ImagesRow /> */}
-            <CategoryRow />
-            {/* <ImagesRow />
-            <ImagesRow /> */}
-            <CategoryRow />
+            <ImagesRow second data={skincareCategory} />
+            <ImagesRow second data={laptopCategory} />
+            <CategoryRow second data={skincareCategory} />
+            <ImagesRow second data={smartPhoneCategory} />
+            <ImagesRow second data={phoneCategory} />
+            <CategoryRow second data={laptopCategory} />
+            <CategoryRow second data={phoneCategory} />
             {/* <ImagesRow />
             <ImagesRow />
             <ImagesRow /> */}
