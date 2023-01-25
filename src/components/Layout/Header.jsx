@@ -1,19 +1,23 @@
-import React, { Fragment } from "react";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { Fragment, useContext } from "react";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import HeaderImg from "./HeaderImg";
+import HeaderInput from "./HeaderInput";
+import ProductContext from "../../context/ProductContext";
 
-const Header = () => {
+const Header = ({ onChange, value, onClick }) => {
+  const ctx = useContext(ProductContext);
+  const { searchProduct, onClickSearch, onSearchChange, result } = ctx;
+  // console.log(searchProduct, result);
+
   return (
     <Fragment>
       <header className="h-16 flex justify-center items-center bg-[#131921] sticky top-0 z-[100]">
-        <img
-          className="w-[100px] object-contain mx-5 mt-[18px]"
-          src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+        <HeaderImg />
+        <HeaderInput
+          onChange={onSearchChange}
+          value={searchProduct}
+          onClick={onClickSearch}
         />
-        <div className="flex items-center w-full flex-1 rounded-[24px]">
-          <input className="h-[12px] p-3 border-none w-full" type={"text"} />
-          <SearchIcon className="p-[5px] h-[22px] bg-[#cd9042]" />
-        </div>
         <nav className="flex justify-evenly">
           <div className="nav-option">
             <span className="nav-option-line-1">Hello Guest</span>

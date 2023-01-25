@@ -44,12 +44,16 @@ export const ProductContextProvider = ({ children }) => {
   const categories = useQuery(["categories"], () => fetchCategory());
 
   //   fetch Products
-  const fetchProducts = async () => {
-    const { data } = await axios.get(`${BASE_URL}/products`);
-    return data;
+  const fetchProducts = async (result) => {
+    const { data } = await axios.get(
+      result
+        ? `https://dummyjson.com/products/search?q=${result}`
+        : `https://dummyjson.com/products`
+    );
+    return data.products;
   };
 
-  const products = useQuery(["product"], () => fetchProducts());
+  const products = useQuery(["product", result], () => fetchProducts(result));
 
   // fetchProductCategory("home-decoration");
   const smartPhoneCategory = useQueryFetchedCategory(
@@ -71,12 +75,18 @@ export const ProductContextProvider = ({ children }) => {
     setsearchProduct(e.target.value);
   };
 
-  //   Handle SearchBtn Click
-  const onClickSearch = (e) => {
-    if (!searchProduct && searchProduct === "") return;
+  setTimeout(() => {
+    if (result) {
+      setResult("");
+    }
+  }, 10000);
 
-    setResult(searchProduct);
-    setsearchProduct("");
+  //   Handle SearchBtn Click
+  const onClickSearch = () => {
+    if (searchProduct && searchProduct !== "") {
+      setResult(searchProduct);
+      setsearchProduct("");
+    }
   };
 
   return (

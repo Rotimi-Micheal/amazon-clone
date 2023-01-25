@@ -1,11 +1,8 @@
 import React, { Fragment, useContext } from "react";
 import CategoryRow from "./CategoryRow";
-import ImagesRow from "./ImagesRow";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { ImgSlidedata, ImgSlideOption } from "../../constant/data";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import ProductContext from "../../context/ProductContext";
 
 const Home = () => {
@@ -18,25 +15,26 @@ const Home = () => {
     skincareCategory,
     laptopCategory,
     phoneCategory,
+    result,
   } = categoriesCtx;
-  console.log(skincareCategory?.data);
+  // console.log(skincareCategory?.data);
 
-  const imageUrl = `https://api.escuelajs.co/api/v1/products/?title=Handmade`;
-  const anoURL = `https://api.escuelajs.co/api/v1/products/?title=Generic`;
-  const UrL = `https://api.escuelajs.co/api/v1/categories`;
+  // const imageUrl = `https://api.escuelajs.co/api/v1/products/?title=Handmade`;
+  // const anoURL = `https://api.escuelajs.co/api/v1/products/?title=Generic`;
+  // const UrL = `https://api.escuelajs.co/api/v1/categories`;
 
-  const { data: CaterogryQuery } = useQuery(["product"], async () => {
-    const res = await axios.get(UrL);
-    return await res.data;
-  });
-  const { data } = useQuery(["productss"], async () => {
-    const res = await axios.get(anoURL);
-    return await res.data;
-  });
-  const { data: rowData } = useQuery(["row"], async () => {
-    const res = await axios.get(imageUrl);
-    return await res.data;
-  });
+  // const { data: CaterogryQuery } = useQuery(["product"], async () => {
+  //   const res = await axios.get(UrL);
+  //   return await res.data;
+  // });
+  // const { data } = useQuery(["productss"], async () => {
+  //   const res = await axios.get(anoURL);
+  //   return await res.data;
+  // });
+  // const { data: rowData } = useQuery(["row"], async () => {
+  //   const res = await axios.get(imageUrl);
+  //   return await res.data;
+  // });
   // console.log(CaterogryQuery);
   // console.log(data);
 
@@ -46,6 +44,8 @@ const Home = () => {
   // if (CaterogryQuery.status === "error") {
   //   return <h1 className="text-5xl">{JSON.stringify(CaterogryQuery.error)}</h1>;
   // }
+
+  // console.log(products?.data);
 
   return (
     <Fragment>
@@ -64,16 +64,22 @@ const Home = () => {
           </Splide>
 
           <div className="flex flex-col bg-gradient-to-b from-[#f3efef] to-[#81819c] ">
-            <CategoryRow data={products} />
-            <CategoryRow second data={smartPhoneCategory} />
+            {/* {products?.data?.map((product) => (
+              <CategoryRow data={product} />
+            ))} */}
+            {/* {products?.data?.length >= 1 &&
+              products?.data?.map((product) => <CategoryRow data={product} />)} */}
 
-            <ImagesRow second data={skincareCategory} />
-            <ImagesRow second data={laptopCategory} />
-            <CategoryRow second data={skincareCategory} />
-            <ImagesRow second data={smartPhoneCategory} />
-            <ImagesRow second data={phoneCategory} />
-            <CategoryRow second data={laptopCategory} />
-            <CategoryRow second data={phoneCategory} />
+            <CategoryRow data={products} />
+            <CategoryRow second data={products} />
+
+            {/* <ImagesRow second data={skincareCategory} />
+            <ImagesRow second data={laptopCategory} /> */}
+            <CategoryRow third data={products} />
+            {/* <ImagesRow second data={smartPhoneCategory} />
+            <ImagesRow second data={phoneCategory} /> */}
+            {/* <CategoryRow second data={laptopCategory} />
+            <CategoryRow second data={phoneCategory} /> */}
             {/* <ImagesRow />
             <ImagesRow />
             <ImagesRow /> */}
