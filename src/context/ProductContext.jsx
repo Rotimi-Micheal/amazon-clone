@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const BASE_URL = `https://dummyjson.com`;
 
@@ -33,6 +33,14 @@ const ProductContext = createContext({
 export const ProductContextProvider = ({ children }) => {
   const [searchProduct, setsearchProduct] = useState("");
   const [result, setResult] = useState("");
+  const [dataFetched, setDataFetched] = useState(false);
+
+  useEffect(() => {
+    if (!dataFetched) {
+      fetchProductCategory();
+      setDataFetched(true);
+    }
+  }, [dataFetched]);
 
   // fetch Product Categories
   const fetchCategory = async () => {

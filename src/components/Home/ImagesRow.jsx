@@ -4,6 +4,13 @@ import "@splidejs/react-splide/css";
 import { IMGS, splideOptions } from "../../constant/data";
 
 const ImagesRow = ({ data, second }) => {
+  if (data.status === "loading") {
+    return <p className="text-blue-600">Loading...</p>;
+  }
+  if (data.status === "error") {
+    return <p className="text-red-600">{data.error.message}</p>;
+  }
+  console.log(data);
   return (
     <div className="p-6 ">
       <div className="bg-white h-[18rem] flex flex-col p-6 justify-center items-center gap-4 ">
